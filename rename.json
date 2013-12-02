@@ -1,0 +1,4 @@
+{
+    "project.cabal": "{%= name %}.cabal",
+    "src/tests/TestFixtures.hs": "src/tests/Test{%= name %}.hs"
+}
