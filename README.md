@@ -1,6 +1,6 @@
 # grunt-init-haskell-test
 
-> Create a cabalized Haskell library project with HUnit and HTF tests set up
+Creates a cabalized Haskell library project with HUnit and HTF tests set up
 
 `cabal configure --enable-tests` is automatically called after running.
 
