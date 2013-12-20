@@ -1,4 +1,5 @@
 {
     "project.cabal": "{%= name %}.cabal",
-    "src/tests/TestFixtures.hs": "src/tests/Test{%= name %}.hs"
+    "src/tests/TestFixtures.hs": "src/tests/Test{%= name %}.hs",
+    "src/Module.hs":"src/{%= name %}.hs"
 }
