@@ -1,8 +1,11 @@
 # grunt-init-haskell-test
 
-Creates a cabalized Haskell library project with HUnit and HTF tests set up
+This is a scaffolding project that creates a cabalized Haskell library project with HUnit and HTF tests set up
 
 `cabal configure --enable-tests` is automatically called after running.
+
+The goal is to get you up and running as fast as possible and writing code.  The only thing you need to answer is 
+what is the project name. Anything else you can edit in the cabal file later.
 
 [grunt-init]: http://gruntjs.com/project-scaffolding
 
