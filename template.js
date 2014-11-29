@@ -35,14 +35,28 @@ exports.template = function(grunt, init, done) {
         // Actually copy (and process) files.
         init.copyAndProcess(files, props);
 
-        console.log("Configuring cabal...");
-
-        exec("cabal configure --enable-tests", function(err, stdout, stderr){
+        // We've got to
+        // 1. cabal sandbox init
+        // 2. cabal install --only-dependencies --enable-tests
+        // 3. cabal configure --enable-tests
+        // And then we can run
+        // 4. cabal build
+        // 5. cabal test
+        var commands = [
+            "cabal sandbox init",
+            "cabal install --only-dependencies --enable-tests",
+            "cabal configure --enable-tests"];
+        var finalCallback = function(err, stdout, stderr) {
             if (err !== null) {
                 console.log("Error: " + err);
             }
+            process.stderr.write(stderr);
+            process.stdout.write(stdout);
+
+            console.log("Project set up completed. Just FYI, `cabal build` will build it, `cabal test` will run tests, `cabal run` will run the executable, and `cabal repl` will enter ghci with loaded modules.");
             done();
-        });
+        };
+        executeAll(commands, finalCallback);
     });
 };
 
@@ -50,3 +64,28 @@ function capitaliseFirstLetter(string)
 {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+function executeAll(commands, finalCallback) {
+    var len = commands.length;
+    var i = -1;
+    var dumbObj = {
+        callback: function(err, stdout, stderr) {
+            i += 1;
+            if (err !== null) {
+                console.log("Error: " + err);
+            }
+            process.stderr.write(stderr);
+            process.stdout.write(stdout);
+
+            console.log("Running `" + commands[i] + "`");
+
+            if (i < len) {
+                exec(commands[i], dumbObj.callback);
+            } else {
+                finalCallback(err, stdout, stderr);
+            }
+        }
+    };
+    dumbObj.callback(null, '', '');
+}
+

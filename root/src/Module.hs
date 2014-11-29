@@ -1,5 +1,4 @@
 module {%= name %} where
 
-idSample :: t -> t
+idSample :: a -> a
 idSample x = x
-
