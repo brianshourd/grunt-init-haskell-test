@@ -44,6 +44,7 @@ exports.template = function(grunt, init, done) {
         // 5. cabal test
         var commands = [
             "cabal sandbox init",
+            "cabal update",
             "cabal install --only-dependencies --enable-tests",
             "cabal configure --enable-tests"];
         var finalCallback = function(err, stdout, stderr) {
